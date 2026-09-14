@@ -9,7 +9,10 @@ export default function App() {
     <>
       <nav className="nav">
         <div className="nav-inner">
-          <NavLink to="/" className="nav-brand">Sov<span>ran</span></NavLink>
+          <NavLink to="/" className="nav-brand">
+            <img src="/logo.svg" alt="" width="28" height="28" />
+            Sov<span>ran</span>
+          </NavLink>
           <ul className="nav-links">
             <li><NavLink to="/" end>Home</NavLink></li>
             <li><NavLink to="/flights">Flights</NavLink></li>
