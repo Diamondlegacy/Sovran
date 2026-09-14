@@ -22,7 +22,13 @@ export default function Flights() {
     setError(null);
     setResults(null);
     try {
-      const data = await flightsApi.search({ origin, destination, departureDate, returnDate, adults });
+      const data = await flightsApi.search({
+        origin: origin.iata_code,
+        destination: destination.iata_code,
+        departureDate,
+        returnDate,
+        adults,
+      });
       setResults(data.data || []);
     } catch (err) {
       setError(err.message);
@@ -40,32 +46,15 @@ export default function Flights() {
         <AirportInput label="To" placeholder="London" onSelect={setDestination} />
         <div className="field">
           <label htmlFor="departureDate">Depart</label>
-          <input
-            id="departureDate"
-            type="date"
-            value={departureDate}
-            onChange={(e) => setDepartureDate(e.target.value)}
-            required
-          />
+          <input id="departureDate" type="date" value={departureDate} onChange={(e) => setDepartureDate(e.target.value)} required />
         </div>
         <div className="field">
           <label htmlFor="returnDate">Return (optional)</label>
-          <input
-            id="returnDate"
-            type="date"
-            value={returnDate}
-            onChange={(e) => setReturnDate(e.target.value)}
-          />
+          <input id="returnDate" type="date" value={returnDate} onChange={(e) => setReturnDate(e.target.value)} />
         </div>
         <div className="field">
           <label htmlFor="adults">Adults</label>
-          <input
-            id="adults"
-            type="number"
-            min="1"
-            value={adults}
-            onChange={(e) => setAdults(e.target.value)}
-          />
+          <input id="adults" type="number" min="1" value={adults} onChange={(e) => setAdults(e.target.value)} />
         </div>
         <button className="btn-primary btn-gold" type="submit" disabled={loading}>
           {loading ? 'Searching…' : 'Search'}
@@ -73,22 +62,14 @@ export default function Flights() {
       </form>
 
       {error && <div className="status-banner">{error}</div>}
-
-      {results && results.length === 0 && (
-        <div className="empty-state">No flights found for that route and date.</div>
-      )}
-
+      {results && results.length === 0 && <div className="empty-state">No flights found for that route and date.</div>}
       {results && results.length > 0 && (
         <div className="card-list">
           {results.map((offer) => (
             <div className="result-card" key={offer.id}>
               <div>
-                <div className="title">
-                  {offer.slices?.[0]?.origin?.iata_code} → {offer.slices?.[0]?.destination?.iata_code}
-                </div>
-                <div className="meta">
-                  {offer.owner?.name} · {offer.slices?.[0]?.segments?.length || 1} segment(s)
-                </div>
+                <div className="title">{offer.slices?.[0]?.origin?.iata_code} → {offer.slices?.[0]?.destination?.iata_code}</div>
+                <div className="meta">{offer.owner?.name} · {offer.slices?.[0]?.segments?.length || 1} segment(s)</div>
               </div>
               <div className="price">{offer.total_currency} {offer.total_amount}</div>
             </div>
