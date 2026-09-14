@@ -1,32 +1,32 @@
 :root {
-  --ink: #12181B;
-  --ink-soft: #2B3538;
-  --sand: #F2ECDF;
-  --sand-deep: #E4DAC2;
-  --amber: #E08A2C;
-  --teal: #1F5F5B;
-  --white: #FFFFFF;
+  --ink: #0E1B2C;
+  --ink-soft: #24384F;
+  --paper: #FAFAF8;
+  --panel: #FFFFFF;
+  --mist: #EEF0F3;
+  --line: #E2E5EA;
+  --gold: #C99A3D;
+  --gold-deep: #A97F2E;
+  --coral: #D14D34;
+  --slate: #5B6472;
 
   --font-display: 'Fraunces', serif;
   --font-body: 'Inter', -apple-system, sans-serif;
 
-  --radius: 6px;
-  --max-width: 1120px;
+  --radius: 8px;
+  --max-width: 1140px;
 }
 
 * { box-sizing: border-box; }
-
-html {
-  -webkit-text-size-adjust: 100%;
-}
+html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  background: var(--sand);
+  background: var(--paper);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 h1, h2, h3 {
@@ -37,33 +37,17 @@ h1, h2, h3 {
   color: var(--ink);
 }
 
-p { margin: 0 0 1em; max-width: 62ch; }
-
+p { margin: 0 0 1em; max-width: 62ch; color: var(--slate); }
 a { color: inherit; }
+button { font-family: var(--font-body); cursor: pointer; }
+:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 2px; }
 
-button {
-  font-family: var(--font-body);
-  cursor: pointer;
-}
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
 
-:focus-visible {
-  outline: 2px solid var(--teal);
-  outline-offset: 2px;
-}
-
-.container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-/* Top navigation */
+/* ---------- Nav ---------- */
 .nav {
-  border-bottom: 1px solid var(--sand-deep);
-  background: var(--sand);
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  background: var(--ink);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .nav-inner {
   display: flex;
@@ -75,158 +59,209 @@ button {
 }
 .nav-brand {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 600;
   text-decoration: none;
-  color: var(--ink);
+  color: #FFFFFF;
+  letter-spacing: 0.01em;
 }
+.nav-brand span { color: var(--gold); }
 .nav-links {
   display: flex;
-  gap: 28px;
+  gap: 30px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 .nav-links a {
   text-decoration: none;
-  font-size: 0.95rem;
-  color: var(--ink-soft);
+  font-size: 0.93rem;
+  color: rgba(255,255,255,0.72);
   border-bottom: 2px solid transparent;
   padding-bottom: 4px;
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
 .nav-links a.active,
 .nav-links a:hover {
-  color: var(--ink);
-  border-bottom-color: var(--amber);
+  color: #FFFFFF;
+  border-bottom-color: var(--gold);
 }
 
-/* Search tabs (flights / hotels / rentals / apartments) */
+/* ---------- Hero with floating search ---------- */
+.hero-band {
+  background: linear-gradient(160deg, var(--ink) 0%, var(--ink-soft) 100%);
+  padding: 64px 0 96px;
+  position: relative;
+}
+.hero-band h1 {
+  color: #FFFFFF;
+  font-size: clamp(2.1rem, 4.6vw, 3.2rem);
+  max-width: 17ch;
+}
+.hero-band p {
+  color: rgba(255,255,255,0.68);
+  font-size: 1.05rem;
+  max-width: 48ch;
+}
+
 .search-tabs {
   display: flex;
   gap: 4px;
+  margin-top: 32px;
   margin-bottom: -1px;
+  position: relative;
+  z-index: 2;
 }
 .search-tab {
-  background: transparent;
+  background: rgba(255,255,255,0.08);
   border: none;
-  padding: 10px 18px;
+  padding: 10px 20px;
   font-size: 0.9rem;
-  color: var(--ink-soft);
+  color: rgba(255,255,255,0.8);
   border-radius: var(--radius) var(--radius) 0 0;
+  text-decoration: none;
+  display: inline-block;
 }
 .search-tab.active {
-  background: var(--white);
+  background: var(--panel);
   color: var(--ink);
   font-weight: 500;
 }
 
 .search-panel {
-  background: var(--white);
+  background: var(--panel);
   border-radius: 0 var(--radius) var(--radius) var(--radius);
-  padding: 20px;
+  padding: 22px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 12px;
+  gap: 14px;
   align-items: end;
+  box-shadow: 0 24px 48px -16px rgba(14, 27, 44, 0.35);
+  position: relative;
+  z-index: 2;
 }
 
 .field label {
   display: block;
   font-size: 0.78rem;
-  color: var(--ink-soft);
+  color: var(--slate);
   margin-bottom: 4px;
 }
-.field input,
-.field select {
+.field input, .field select {
   width: 100%;
-  padding: 10px;
-  border: 1px solid var(--sand-deep);
-  border-radius: var(--radius);
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
   font-size: 0.95rem;
   font-family: var(--font-body);
-  background: var(--white);
+  background: var(--panel);
+  color: var(--ink);
 }
 
 .btn-primary {
-  background: var(--teal);
-  color: var(--white);
+  background: var(--ink);
+  color: #FFFFFF;
   border: none;
   padding: 12px 20px;
-  border-radius: var(--radius);
+  border-radius: 6px;
   font-size: 0.95rem;
   font-weight: 500;
+  transition: background 0.15s ease;
 }
-.btn-primary:hover { background: #184D49; }
-.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-primary:hover { background: var(--ink-soft); }
+.btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
 
-/* Hero */
-.hero {
-  padding: 72px 0 48px;
+.btn-gold {
+  background: var(--gold);
+  color: var(--ink);
 }
-.hero h1 {
-  font-size: clamp(2.2rem, 5vw, 3.4rem);
-  max-width: 16ch;
-}
-.hero p {
-  color: var(--ink-soft);
-  font-size: 1.05rem;
-}
+.btn-gold:hover { background: var(--gold-deep); color: #FFFFFF; }
 
-/* Result cards */
-.card-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 24px;
+/* ---------- Vertical picker cards on Home ---------- */
+.vertical-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: -56px;
+  position: relative;
+  z-index: 3;
 }
-.result-card {
-  background: var(--white);
-  border: 1px solid var(--sand-deep);
+.vertical-card {
+  background: var(--panel);
   border-radius: var(--radius);
-  padding: 16px 20px;
+  padding: 24px;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: 0 16px 32px -18px rgba(14, 27, 44, 0.28);
+  border: 1px solid var(--line);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.vertical-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px -16px rgba(14, 27, 44, 0.36);
+}
+.vertical-card .eyebrow {
+  font-size: 0.78rem;
+  color: var(--gold-deep);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.vertical-card h3 { margin-bottom: 6px; font-size: 1.15rem; }
+.vertical-card p { font-size: 0.92rem; margin-bottom: 0; }
+
+/* ---------- Results ---------- */
+.card-list { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+.result-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 22px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
 }
-.result-card .title {
-  font-weight: 500;
-  margin-bottom: 2px;
-}
-.result-card .meta {
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-}
+.result-card .title { font-weight: 500; margin-bottom: 2px; }
+.result-card .meta { font-size: 0.85rem; color: var(--slate); }
 .result-card .price {
   font-family: var(--font-display);
   font-size: 1.3rem;
+  color: var(--coral);
   white-space: nowrap;
 }
 
 .empty-state {
   padding: 40px 20px;
   text-align: center;
-  color: var(--ink-soft);
-  border: 1px dashed var(--sand-deep);
+  color: var(--slate);
+  border: 1px dashed var(--line);
   border-radius: var(--radius);
   margin-top: 24px;
 }
 
 .status-banner {
-  background: #FCEFDD;
-  border: 1px solid var(--amber);
+  background: #FBF0EC;
+  border: 1px solid var(--coral);
   border-radius: var(--radius);
   padding: 12px 16px;
   font-size: 0.9rem;
   margin-top: 20px;
+  color: var(--ink);
 }
 
+/* ---------- Footer ---------- */
 footer {
-  border-top: 1px solid var(--sand-deep);
-  margin-top: 80px;
-  padding: 24px;
+  background: var(--ink);
+  color: rgba(255,255,255,0.6);
+  margin-top: 96px;
+  padding: 32px 24px;
   text-align: center;
   font-size: 0.85rem;
-  color: var(--ink-soft);
+}
+footer .footer-brand {
+  font-family: var(--font-display);
+  color: #FFFFFF;
+  font-size: 1rem;
+  margin-bottom: 4px;
 }
