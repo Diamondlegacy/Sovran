@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { flightsApi } from '../services/dataService.js';
 
 // Airport/city autocomplete backed by Duffel's real Place Suggestion API.
-// Selecting a suggestion stores the IATA code Duffel actually needs,
-// while showing the person a readable label like "Lagos (LOS) — NG".
+// Passes the full place object back so callers can use whatever they need
+// (iata_code for flights, latitude/longitude for hotels).
 export default function AirportInput({ label, onSelect, placeholder }) {
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -25,7 +25,7 @@ export default function AirportInput({ label, onSelect, placeholder }) {
     const text = e.target.value;
     setQuery(text);
     setOpen(true);
-    onSelect(null); // clear the confirmed code until a new one is picked
+    onSelect(null);
 
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     if (text.trim().length < 2) {
@@ -49,7 +49,7 @@ export default function AirportInput({ label, onSelect, placeholder }) {
     setQuery(readable);
     setSuggestions([]);
     setOpen(false);
-    onSelect(place.iata_code);
+    onSelect(place);
   }
 
   return (
