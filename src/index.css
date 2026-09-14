@@ -1,0 +1,232 @@
+:root {
+  --ink: #12181B;
+  --ink-soft: #2B3538;
+  --sand: #F2ECDF;
+  --sand-deep: #E4DAC2;
+  --amber: #E08A2C;
+  --teal: #1F5F5B;
+  --white: #FFFFFF;
+
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+
+  --radius: 6px;
+  --max-width: 1120px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--sand);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0 0 0.5em;
+  color: var(--ink);
+}
+
+p { margin: 0 0 1em; max-width: 62ch; }
+
+a { color: inherit; }
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Top navigation */
+.nav {
+  border-bottom: 1px solid var(--sand-deep);
+  background: var(--sand);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ink);
+}
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  border-bottom: 2px solid transparent;
+  padding-bottom: 4px;
+}
+.nav-links a.active,
+.nav-links a:hover {
+  color: var(--ink);
+  border-bottom-color: var(--amber);
+}
+
+/* Search tabs (flights / hotels / rentals / apartments) */
+.search-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: -1px;
+}
+.search-tab {
+  background: transparent;
+  border: none;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.search-tab.active {
+  background: var(--white);
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.search-panel {
+  background: var(--white);
+  border-radius: 0 var(--radius) var(--radius) var(--radius);
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+
+.field label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+.field input,
+.field select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--sand-deep);
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  background: var(--white);
+}
+
+.btn-primary {
+  background: var(--teal);
+  color: var(--white);
+  border: none;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.btn-primary:hover { background: #184D49; }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Hero */
+.hero {
+  padding: 72px 0 48px;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  max-width: 16ch;
+}
+.hero p {
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+}
+
+/* Result cards */
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+.result-card {
+  background: var(--white);
+  border: 1px solid var(--sand-deep);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.result-card .title {
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.result-card .meta {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.result-card .price {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  white-space: nowrap;
+}
+
+.empty-state {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--ink-soft);
+  border: 1px dashed var(--sand-deep);
+  border-radius: var(--radius);
+  margin-top: 24px;
+}
+
+.status-banner {
+  background: #FCEFDD;
+  border: 1px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  margin-top: 20px;
+}
+
+footer {
+  border-top: 1px solid var(--sand-deep);
+  margin-top: 80px;
+  padding: 24px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
