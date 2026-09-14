@@ -3,38 +3,41 @@ import { Link } from 'react-router-dom';
 export default function Home() {
   return (
     <>
-      <div className="hero-band">
+      <div className="hero-band hero-band--simple">
         <div className="container">
-          <h1>One search. Every way to get there and stay.</h1>
+          <h1>Book like you already know where you're going.</h1>
           <p>
-            Flights, hotels, and apartments in one place — built for travelers
-            who don't want to juggle four different tabs to plan one trip.
+            Sovran cuts the noise out of trip planning — real fares, real
+            rooms, real listings, compared honestly in one place.
           </p>
-
-          <div className="search-tabs">
-            <span className="search-tab active">Flights</span>
-          </div>
-          <div className="search-panel">
-            <div className="field">
-              <label>From</label>
-              <input placeholder="LOS" />
-            </div>
-            <div className="field">
-              <label>To</label>
-              <input placeholder="LON" />
-            </div>
-            <div className="field">
-              <label>Depart</label>
-              <input type="date" />
-            </div>
-            <Link to="/flights" className="btn-primary btn-gold" style={{ textAlign: 'center', textDecoration: 'none' }}>
-              Search flights
-            </Link>
+          <div className="hero-actions">
+            <Link to="/flights" className="btn-primary btn-gold">Search flights</Link>
+            <Link to="/hotels" className="btn-primary btn-ghost">Browse stays</Link>
           </div>
         </div>
       </div>
 
       <div className="container">
+        <div className="editorial">
+          <h2>
+            Most travel sites are built to upsell you.<br />
+            We built this one to get you there.
+          </h2>
+          <div>
+            <p>
+              No bundled add-ons you didn't ask for, no fake urgency timers,
+              no price that changes between search and checkout. Just what's
+              actually available, at the actual price, from people who
+              answer for it.
+            </p>
+            <div className="stats-row">
+              <div><strong>300+</strong><span>airlines</span></div>
+              <div><strong>2M+</strong><span>properties worldwide</span></div>
+              <div><strong>1</strong><span>search to start</span></div>
+            </div>
+          </div>
+        </div>
+
         <div className="vertical-grid">
           <Link to="/flights" className="vertical-card">
             <div className="eyebrow">Flights</div>
