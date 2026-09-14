@@ -1,6 +1,6 @@
 // /api/flights.js
-// Flight search via Duffel. Needs DUFFEL_API_KEY set in your environment
-// (starts with duffel_test_ while you're in sandbox).
+// Flight search + place autocomplete via Duffel. Needs DUFFEL_API_KEY set
+// in your environment (starts with duffel_test_ while you're in sandbox).
 
 const DUFFEL_BASE = 'https://api.duffel.com';
 
@@ -34,6 +34,16 @@ async function duffelRequest(path, { method = 'GET', body } = {}) {
   return data;
 }
 
+// action=places -> airport/city autocomplete, e.g. "lagos" -> LOS, Lagos, NG
+async function handlePlaces(req, res) {
+  const { query } = req.query;
+  if (!query || query.trim().length < 2) {
+    return res.status(200).json({ data: [] });
+  }
+  const data = await duffelRequest(`/places/suggestions?query=${encodeURIComponent(query)}`);
+  return res.status(200).json({ data: data.data || [] });
+}
+
 // action=search -> create an offer request and return matching offers
 async function handleSearch(req, res) {
   const { origin, destination, departureDate, returnDate, adults } = req.query;
@@ -65,7 +75,6 @@ async function handleSearch(req, res) {
     },
   });
 
-  // Duffel nests offers under data.offers for the offer_request response
   return res.status(200).json({ data: data.data?.offers || [] });
 }
 
@@ -78,12 +87,14 @@ export default async function handler(req, res) {
 
   try {
     switch (action) {
+      case 'places':
+        return await handlePlaces(req, res);
       case 'search':
         return await handleSearch(req, res);
       default:
         return res.status(400).json({
           error: 'Unknown or missing action',
-          validActions: ['search'],
+          validActions: ['places', 'search'],
         });
     }
   } catch (err) {
