@@ -1,6 +1,5 @@
 // src/services/dataService.js
 // Single place all frontend code talks to the backend from.
-// If a fetch shape ever changes, this is the only file that should need editing.
 
 async function request(path) {
   const res = await fetch(path);
@@ -23,6 +22,9 @@ export const flightsApi = {
     if (returnDate) params.set('returnDate', returnDate);
     return request(`/api/flights?${params.toString()}`);
   },
+
+  suggestPlaces: (query) =>
+    request(`/api/flights?action=places&query=${encodeURIComponent(query)}`),
 };
 
 export const hotelsApi = {
