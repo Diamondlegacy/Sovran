@@ -1,41 +1,22 @@
-// src/services/dataService.js
-// Single place all frontend code talks to the backend from.
-
 async function request(path) {
   const res = await fetch(path);
   const data = await res.json();
-  if (!res.ok) {
-    throw new Error(data.error || `Request failed (${res.status})`);
-  }
+  if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
   return data;
 }
 
 export const flightsApi = {
   search: ({ origin, destination, departureDate, returnDate, adults }) => {
-    const params = new URLSearchParams({
-      action: 'search',
-      origin,
-      destination,
-      departureDate,
-      adults: adults || 1,
-    });
+    const params = new URLSearchParams({ action: 'search', origin, destination, departureDate, adults: adults || 1 });
     if (returnDate) params.set('returnDate', returnDate);
     return request(`/api/flights?${params.toString()}`);
   },
-
-  suggestPlaces: (query) =>
-    request(`/api/flights?action=places&query=${encodeURIComponent(query)}`),
+  suggestPlaces: (query) => request(`/api/flights?action=places&query=${encodeURIComponent(query)}`),
 };
 
 export const hotelsApi = {
-  search: ({ cityCode, checkInDate, checkOutDate, adults }) => {
-    const params = new URLSearchParams({
-      action: 'search',
-      cityCode,
-      checkInDate,
-      checkOutDate,
-      adults: adults || 1,
-    });
+  search: ({ lat, lng, checkInDate, checkOutDate, adults }) => {
+    const params = new URLSearchParams({ action: 'search', lat, lng, checkInDate, checkOutDate, adults: adults || 1 });
     return request(`/api/hotels?${params.toString()}`);
   },
 };
