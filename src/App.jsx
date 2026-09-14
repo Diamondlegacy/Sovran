@@ -9,8 +9,9 @@ export default function App() {
     <>
       <nav className="nav">
         <div className="nav-inner">
-          <NavLink to="/" className="nav-brand">Waypoint</NavLink>
+          <NavLink to="/" className="nav-brand">Sov<span>ran</span></NavLink>
           <ul className="nav-links">
+            <li><NavLink to="/" end>Home</NavLink></li>
             <li><NavLink to="/flights">Flights</NavLink></li>
             <li><NavLink to="/hotels">Hotels</NavLink></li>
             <li><NavLink to="/apartments">Apartments</NavLink></li>
@@ -25,7 +26,10 @@ export default function App() {
         <Route path="/apartments" element={<Apartments />} />
       </Routes>
 
-      <footer>Waypoint — built by Eze</footer>
+      <footer>
+        <div className="footer-brand">Sovran</div>
+        <div>Flights, stays, and apartments — one search, every way to travel.</div>
+      </footer>
     </>
   );
 }
