@@ -1,29 +1,28 @@
 import { useState } from 'react';
 import { flightsApi } from '../services/dataService.js';
+import AirportInput from '../components/AirportInput.jsx';
 
 export default function Flights() {
-  const [form, setForm] = useState({
-    origin: '',
-    destination: '',
-    departureDate: '',
-    returnDate: '',
-    adults: 1,
-  });
+  const [origin, setOrigin] = useState(null);
+  const [destination, setDestination] = useState(null);
+  const [departureDate, setDepartureDate] = useState('');
+  const [returnDate, setReturnDate] = useState('');
+  const [adults, setAdults] = useState(1);
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  function update(field, value) {
-    setForm((f) => ({ ...f, [field]: value }));
-  }
-
   async function handleSearch(e) {
     e.preventDefault();
+    if (!origin || !destination) {
+      setError('Pick an airport from the dropdown for both From and To.');
+      return;
+    }
     setLoading(true);
     setError(null);
     setResults(null);
     try {
-      const data = await flightsApi.search(form);
+      const data = await flightsApi.search({ origin, destination, departureDate, returnDate, adults });
       setResults(data.data || []);
     } catch (err) {
       setError(err.message);
@@ -37,33 +36,15 @@ export default function Flights() {
       <h2>Search flights</h2>
 
       <form className="search-panel" onSubmit={handleSearch}>
-        <div className="field">
-          <label htmlFor="origin">From</label>
-          <input
-            id="origin"
-            placeholder="LOS"
-            value={form.origin}
-            onChange={(e) => update('origin', e.target.value.toUpperCase())}
-            required
-          />
-        </div>
-        <div className="field">
-          <label htmlFor="destination">To</label>
-          <input
-            id="destination"
-            placeholder="LON"
-            value={form.destination}
-            onChange={(e) => update('destination', e.target.value.toUpperCase())}
-            required
-          />
-        </div>
+        <AirportInput label="From" placeholder="Lagos" onSelect={setOrigin} />
+        <AirportInput label="To" placeholder="London" onSelect={setDestination} />
         <div className="field">
           <label htmlFor="departureDate">Depart</label>
           <input
             id="departureDate"
             type="date"
-            value={form.departureDate}
-            onChange={(e) => update('departureDate', e.target.value)}
+            value={departureDate}
+            onChange={(e) => setDepartureDate(e.target.value)}
             required
           />
         </div>
@@ -72,8 +53,8 @@ export default function Flights() {
           <input
             id="returnDate"
             type="date"
-            value={form.returnDate}
-            onChange={(e) => update('returnDate', e.target.value)}
+            value={returnDate}
+            onChange={(e) => setReturnDate(e.target.value)}
           />
         </div>
         <div className="field">
@@ -82,20 +63,16 @@ export default function Flights() {
             id="adults"
             type="number"
             min="1"
-            value={form.adults}
-            onChange={(e) => update('adults', e.target.value)}
+            value={adults}
+            onChange={(e) => setAdults(e.target.value)}
           />
         </div>
-        <button className="btn-primary" type="submit" disabled={loading}>
+        <button className="btn-primary btn-gold" type="submit" disabled={loading}>
           {loading ? 'Searching…' : 'Search'}
         </button>
       </form>
 
-      {error && (
-        <div className="status-banner">
-          Couldn't complete that search: {error}
-        </div>
-      )}
+      {error && <div className="status-banner">{error}</div>}
 
       {results && results.length === 0 && (
         <div className="empty-state">No flights found for that route and date.</div>
