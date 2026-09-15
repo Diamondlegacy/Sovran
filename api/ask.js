@@ -1,17 +1,17 @@
 // /api/ask.js
-// "Ask Sovran" — general chat assistant powered by xAI's Grok.
-// Needs XAI_API_KEY set in your environment.
+// "Ask Sovran" — general chat assistant powered by Groq (free tier, Llama
+// models). Needs GROQ_API_KEY set in your environment.
 
-const XAI_BASE = 'https://api.x.ai/v1/chat/completions';
+const GROQ_BASE = 'https://api.groq.com/openai/v1/chat/completions';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const apiKey = process.env.XAI_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: 'XAI_API_KEY is not set in your environment variables' });
+    return res.status(500).json({ error: 'GROQ_API_KEY is not set in your environment variables' });
   }
 
   const { messages } = req.body || {};
@@ -20,14 +20,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch(XAI_BASE, {
+    const response = await fetch(GROQ_BASE, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'grok-3', // check docs.x.ai/developers/models for the latest name
+        model: 'llama-3.3-70b-versatile',
         messages: [
           {
             role: 'system',
@@ -45,13 +45,13 @@ export default async function handler(req, res) {
     try {
       data = JSON.parse(raw);
     } catch {
-      const err = new Error(raw.slice(0, 200) || `xAI request failed (${response.status})`);
+      const err = new Error(raw.slice(0, 200) || `Groq request failed (${response.status})`);
       err.status = response.status;
       throw err;
     }
 
     if (!response.ok) {
-      const message = data?.error?.message || `xAI request failed (${response.status})`;
+      const message = data?.error?.message || `Groq request failed (${response.status})`;
       const err = new Error(message);
       err.status = response.status;
       throw err;
