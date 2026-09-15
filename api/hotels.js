@@ -24,7 +24,17 @@ async function duffelRequest(path, { method = 'GET', body } = {}) {
     },
     body: body ? JSON.stringify(body) : undefined,
   });
-  const data = await response.json();
+    const raw = await response.text();
+  let data;
+  try {
+    data = JSON.parse(raw);
+  } catch {
+    const err = new Error(
+      raw.slice(0, 200) || `Duffel request failed (${response.status})`
+    );
+    err.status = response.status;
+    throw err;
+  }
   if (!response.ok) {
     const message = data?.errors?.[0]?.message || `Duffel request failed (${response.status})`;
     const err = new Error(message);
