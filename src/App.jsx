@@ -3,6 +3,7 @@ import Home from './pages/Home.jsx';
 import Flights from './pages/Flights.jsx';
 import Hotels from './pages/Hotels.jsx';
 import Apartments from './pages/Apartments.jsx';
+import { HomeIcon, FlightsIcon, HotelsIcon, ApartmentsIcon } from './components/Icons.jsx';
 
 export default function App() {
   return (
@@ -14,10 +15,10 @@ export default function App() {
             Sov<span>ran</span>
           </NavLink>
           <ul className="nav-links">
-            <li><NavLink to="/" end>Home</NavLink></li>
-            <li><NavLink to="/flights">Flights</NavLink></li>
-            <li><NavLink to="/hotels">Hotels</NavLink></li>
-            <li><NavLink to="/apartments">Apartments</NavLink></li>
+            <li><NavLink to="/" end><HomeIcon />Home</NavLink></li>
+            <li><NavLink to="/flights"><FlightsIcon />Flights</NavLink></li>
+            <li><NavLink to="/hotels"><HotelsIcon />Hotels</NavLink></li>
+            <li><NavLink to="/apartments"><ApartmentsIcon />Apartments</NavLink></li>
           </ul>
         </div>
       </nav>
