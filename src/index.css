@@ -265,3 +265,36 @@ footer .footer-brand { font-family: var(--font-display); color: #FFFFFF; font-si
   font-size: 0.95rem;
   font-family: var(--font-body);
 }
+/* ---------- Mobile nav ---------- */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  padding: 6px;
+}
+.nav-toggle svg { width: 22px; height: 22px; }
+
+@media (max-width: 860px) {
+  .nav-toggle { display: block; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 4px;
+    background: var(--ink);
+    padding: 12px 24px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a {
+    padding: 12px 4px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    width: 100%;
+  }
+  .nav-links a:last-child { border-bottom: none; }
+  .nav-inner { position: relative; }
+}
