@@ -46,3 +46,12 @@ export function ApartmentsIcon() {
     </svg>
   );
 }
+
+export function AskIcon() {
+  return (
+    <svg {...common}>
+      <path d="M3 4h14v9H8l-4 3v-3H3z" />
+      <path d="M7 8h6M7 11h4" />
+    </svg>
+  );
+}
