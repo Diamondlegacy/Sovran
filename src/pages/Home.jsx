@@ -4,6 +4,14 @@ export default function Home() {
   return (
     <>
       <div className="hero-band hero-band--simple">
+        <svg className="hero-motif" viewBox="0 0 480 400" aria-hidden="true">
+          <path d="M40 340 Q 200 260 300 120" fill="none" stroke="#C99A3D" strokeWidth="1" strokeDasharray="2 6" />
+          <path d="M100 380 Q 260 300 420 60" fill="none" stroke="#C99A3D" strokeWidth="1" strokeDasharray="2 6" />
+          <circle cx="40" cy="340" r="2.5" fill="#C99A3D" />
+          <circle cx="300" cy="120" r="2.5" fill="#C99A3D" />
+          <circle cx="100" cy="380" r="2.5" fill="#C99A3D" />
+          <circle cx="420" cy="60" r="2.5" fill="#C99A3D" />
+        </svg>
         <div className="container">
           <h1>Book like you already know where you're going.</h1>
           <p>
