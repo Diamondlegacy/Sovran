@@ -56,6 +56,15 @@ export function AskIcon() {
   );
 }
 
+export function MapIcon() {
+  return (
+    <svg {...common}>
+      <path d="M7 4L2 6v10l5-2 6 2 5-2V4l-5 2-6-2z" />
+      <path d="M7 4v10M13 6v10" />
+    </svg>
+  );
+}
+
 export function MenuIcon() {
   return (
     <svg {...common}>
