@@ -3,7 +3,8 @@ import Home from './pages/Home.jsx';
 import Flights from './pages/Flights.jsx';
 import Hotels from './pages/Hotels.jsx';
 import Apartments from './pages/Apartments.jsx';
-import { HomeIcon, FlightsIcon, HotelsIcon, ApartmentsIcon } from './components/Icons.jsx';
+import Ask from './pages/Ask.jsx';
+import { HomeIcon, FlightsIcon, HotelsIcon, ApartmentsIcon, AskIcon } from './components/Icons.jsx';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
             <li><NavLink to="/flights"><FlightsIcon />Flights</NavLink></li>
             <li><NavLink to="/hotels"><HotelsIcon />Hotels</NavLink></li>
             <li><NavLink to="/apartments"><ApartmentsIcon />Apartments</NavLink></li>
+            <li><NavLink to="/ask"><AskIcon />Ask</NavLink></li>
           </ul>
         </div>
       </nav>
@@ -28,6 +30,7 @@ export default function App() {
         <Route path="/flights" element={<Flights />} />
         <Route path="/hotels" element={<Hotels />} />
         <Route path="/apartments" element={<Apartments />} />
+        <Route path="/ask" element={<Ask />} />
       </Routes>
 
       <footer>
