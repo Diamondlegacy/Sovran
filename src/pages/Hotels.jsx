@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { hotelsApi } from '../services/dataService.js';
 import AirportInput from '../components/AirportInput.jsx';
+import MapEmbed from '../components/MapEmbed.jsx';
 
 export default function Hotels() {
   const [place, setPlace] = useState(null);
@@ -56,6 +57,7 @@ export default function Hotels() {
       </form>
 
       {error && <div className="status-banner">{error}</div>}
+      {place && <MapEmbed query={`${place.name}${place.iata_country_code ? ', ' + place.iata_country_code : ''}`} />}
       {hotels && hotels.length === 0 && <div className="empty-state">No hotels found near that city.</div>}
       {hotels && hotels.length > 0 && (
         <div className="card-list">
