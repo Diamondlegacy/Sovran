@@ -5,8 +5,7 @@ import Flights from './pages/Flights.jsx';
 import Hotels from './pages/Hotels.jsx';
 import Apartments from './pages/Apartments.jsx';
 import Ask from './pages/Ask.jsx';
-import MapPage from './pages/MapPage.jsx';
-import { HomeIcon, FlightsIcon, HotelsIcon, ApartmentsIcon, AskIcon, MapIcon, MenuIcon, CloseIcon } from './components/Icons.jsx';
+import { HomeIcon, FlightsIcon, HotelsIcon, ApartmentsIcon, AskIcon, MenuIcon, CloseIcon } from './components/Icons.jsx';
 
 export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -30,7 +29,6 @@ export default function App() {
             <li><NavLink to="/flights"><FlightsIcon />Flights</NavLink></li>
             <li><NavLink to="/hotels"><HotelsIcon />Hotels</NavLink></li>
             <li><NavLink to="/apartments"><ApartmentsIcon />Apartments</NavLink></li>
-            <li><NavLink to="/map"><MapIcon />Map</NavLink></li>
             <li><NavLink to="/ask"><AskIcon />Ask</NavLink></li>
           </ul>
         </div>
@@ -53,7 +51,6 @@ export default function App() {
           <li><NavLink to="/flights" onClick={close}><FlightsIcon />Flights</NavLink></li>
           <li><NavLink to="/hotels" onClick={close}><HotelsIcon />Hotels</NavLink></li>
           <li><NavLink to="/apartments" onClick={close}><ApartmentsIcon />Apartments</NavLink></li>
-          <li><NavLink to="/map" onClick={close}><MapIcon />Map</NavLink></li>
           <li><NavLink to="/ask" onClick={close}><AskIcon />Ask</NavLink></li>
         </ul>
       </aside>
@@ -63,7 +60,6 @@ export default function App() {
         <Route path="/flights" element={<Flights />} />
         <Route path="/hotels" element={<Hotels />} />
         <Route path="/apartments" element={<Apartments />} />
-        <Route path="/map" element={<MapPage />} />
         <Route path="/ask" element={<Ask />} />
       </Routes>
 
